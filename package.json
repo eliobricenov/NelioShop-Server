@@ -1,0 +1,20 @@
+{
+  "name": "nelioshop-server",
+  "version": "1.0.0",
+  "description": "server for the nelioshop app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nestor Amesty, Elio Briceño",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.0",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.11",
+    "pg-promise": "^8.5.1"
+  }
+}
