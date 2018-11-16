@@ -3,7 +3,7 @@ const pgp = require('pg-promise')();
 const config = {
     host: 'localhost',
     port: 5432,
-    database: 'neliokeep',
+    database: 'nelioshop',
     user: 'postgres',
     password: '1234'
 };
