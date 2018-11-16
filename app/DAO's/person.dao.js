@@ -1,5 +1,4 @@
-const db = require('../utils/db');
-const noteDao = require('../DAOs/note.dao');
+const db = require('../util/db/db');
 
 module.exports = {
 

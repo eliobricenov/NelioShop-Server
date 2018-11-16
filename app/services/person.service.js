@@ -15,9 +15,5 @@ module.exports = {
 
     login: (person) => {
         return personDao.login(person);
-    },
-
-    getNotes: (personId) => {
-        return personDao.getNotes(personId);
     }
 }

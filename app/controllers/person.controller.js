@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const personService = require('../services/person.service');
-const personValidation = require('../utils/validation/person/personValidation.middleware');
-const handleValidationErrors = require('../utils/validation/validationHandler.middleware');
-const jwtUtils = require('../utils/jwt');
-const config = require('../configuration');
+const personValidation = require('../middlewares/validation/person/personValidation.middleware');
+const handleValidationErrors = require('../middlewares/validation/validationHandler.middleware');
+const jwt = require('../middlewares/jwt/jwt');
+const config = require('../util/configuration');
 
 router
     //start of endpoints
@@ -25,7 +25,7 @@ router
     .post('/login', [personValidation.login, handleValidationErrors], async (req, res, next) => {
         try {
             const data = await personService.login(req.body);
-            const token = await jwtUtils.generateToken(data, config.secretKey);
+            const token = await jwt.generateToken(data, config.secretKey);
             res.status(200).send({
                 status: 200,
                 data,
