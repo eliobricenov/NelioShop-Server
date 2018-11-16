@@ -1,5 +1,5 @@
 const db = require('../util/db/db');
-
+const bcrypt = require('../util/bcrypt/bcrypt');
 module.exports = {
 
     /**
@@ -24,9 +24,10 @@ module.exports = {
             //Check if there's a person with the provided email
             const count = await t.one('SELECT count(id) FROM person WHERE person.email = $1', [person.email]);
             if (count.count == 0) {
+                const pass = await bcrypt.hash(person.password);
                 return t.one(`INSERT INTO person (email, username, first_name, last_name, password) 
-                    VALUES ($1, $2, $3, $4, $5) RETURNING id, email, username, first_name, last_name, password`,
-                    [person.email, person.username, person.firstName, person.lastName, person.password]);
+                    VALUES ($1, $2, $3, $4, $5) RETURNING id, email, username, first_name, last_name`,
+                    [person.email, person.username, person.firstName, person.lastName, pass]);
             } else {
                 throw {
                     status: 403,
@@ -51,7 +52,8 @@ module.exports = {
             const count = await t.one('SELECT count(id) FROM person WHERE person.email = $1', [person.email]);
             if (count.count > 0) {
                 const data =  await t.one(`SELECT * FROM person WHERE person.email = $1`, [person.email]);
-                if (data.password == person.password) {
+                const match = await bcrypt.compare(person.password, data.password);
+                if (match) {
                     return {
                         id: data.id,
                         firstName: data.first_name,

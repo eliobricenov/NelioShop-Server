@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors());
-app.use('/', require('./controllers'));
+app.use('/', require('./app/controllers'));
 
 //error handler middleware
 app.use(require('./app/middlewares/error/errorHandler.middleware'));

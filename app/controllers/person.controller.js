@@ -4,7 +4,7 @@ const router = express.Router();
 const personService = require('../services/person.service');
 const personValidation = require('../middlewares/validation/person/personValidation.middleware');
 const handleValidationErrors = require('../middlewares/validation/validationHandler.middleware');
-const jwt = require('../middlewares/jwt/jwt');
+const jwt = require('../middlewares/security/jwt/jwt');
 const config = require('../util/configuration');
 
 router
