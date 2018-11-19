@@ -9,7 +9,8 @@ const config = require('../util/configuration');
 
 router
     //start of endpoints
-
+    .get('/', (req, res, next) => res.send('<h1>Hello world</h1>'))
+    
     .post('/', [personValidation.createPerson, handleValidationErrors], async (req, res, next) => {
         try {
             const data = await personService.create(req.body);
@@ -25,6 +26,34 @@ router
     .post('/login', [personValidation.login, handleValidationErrors], async (req, res, next) => {
         try {
             const data = await personService.login(req.body);
+            const token = await jwt.generateToken(data, config.secretKey);
+            res.status(200).send({
+                status: 200,
+                data,
+                token
+            });
+        } catch (error) {
+            next(error);
+        }
+    })
+
+    .put('/', [personValidation.edit, handleValidationErrors], async (req, res, next) => {
+        try {
+            const data = await personService.edit(req.body);
+            const token = await jwt.generateToken(data, config.secretKey);
+            res.status(200).send({
+                status: 200,
+                data,
+                token
+            });
+        } catch (error) {
+            next(error);
+        }
+    })
+
+    .put('/password', [personValidation.edit, handleValidationErrors], async (req, res, next) => {
+        try {
+            const data = await personService.editPass(req.body);
             const token = await jwt.generateToken(data, config.secretKey);
             res.status(200).send({
                 status: 200,

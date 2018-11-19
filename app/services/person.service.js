@@ -15,5 +15,17 @@ module.exports = {
 
     login: (person) => {
         return personDao.login(person);
+    }, 
+
+    edit: (person) => {
+        return personDao.edit(person);
+    },
+
+    editPass: (person) => {
+        return personDao.editPass(person);
+    },
+
+    delet: (person) => {
+        return personDao.delete(person);
     }
 }
